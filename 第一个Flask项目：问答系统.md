@@ -43,7 +43,7 @@ db = SQLAlchemy()
 
 解决循环引用问题：
 
-<img src="F:/lifeProject/first_flask/images/image-20230322165101956.png" alt="image-20230322165101956" style="zoom: 50%;" />
+<img src="F:/lifeProject/first_flask/images/1.png" alt="1" style="zoom: 50%;" />
 
 ### models.py：模型
 
@@ -196,4 +196,3 @@ flask db upgrade
 
 ![image-20230322180246435](F:/lifeProject/first_flask/images/image-20230322180246435.png)
 
-~

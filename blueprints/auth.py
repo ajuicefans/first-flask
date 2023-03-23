@@ -1,5 +1,5 @@
 # 授权相关
-from flask import Blueprint
+from flask import Blueprint, render_template
 # 相当于是flask的子模块
 
 '''
@@ -13,3 +13,7 @@ bp = Blueprint("auth", __name__, url_prefix="/auth")
 @bp.route("/login")
 def login():
     pass
+
+@bp.route("/register")
+def register():
+    return render_template("register.html")
