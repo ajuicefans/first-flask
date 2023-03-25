@@ -1,6 +1,6 @@
 from flask import Flask
 import config
-from exts import db
+from exts import db, mail
 from models import UserModel
 from blueprints.qa import bp as qa_bp
 from blueprints.auth import bp as auth_bp
@@ -11,6 +11,7 @@ app.config.from_object(config)
 
 # 绑定db，init_app()这个方法，可以不在创建时绑定，而是先创建，后续再绑定
 db.init_app(app)
+mail.init_app(app)
 
 migrate = Migrate(app, db)
 

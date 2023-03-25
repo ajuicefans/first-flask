@@ -1,6 +1,8 @@
 # 授权相关
 from flask import Blueprint, render_template
 # 相当于是flask的子模块
+from exts import mail
+from flask_mail import Message
 
 '''
     name = "auth"
@@ -17,3 +19,9 @@ def login():
 @bp.route("/register")
 def register():
     return render_template("register.html")
+
+# @bp.route("/mail/test")
+# def mail_test():
+#     message = Message(subject="邮箱测试", recipients=["xxx@qq.com"], body="mail test")
+#     mail.send(message)
+#     return "邮件发送成功！"
