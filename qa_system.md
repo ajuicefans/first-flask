@@ -43,7 +43,7 @@ db = SQLAlchemy()
 
 解决循环引用问题：
 
-<img src="F:/lifeProject/first-flask/images/1.png" alt="1" style="zoom: 50%;" />
+<img src="https://raw.githubusercontent.com/ajuicefans/first-flask/main/images/1.png" alt="1" style="zoom: 50%;" />
 
 ### models.py：模型
 
@@ -138,7 +138,7 @@ if __name__ == '__main__':
 
 这里先创建一下数据库👉Navicat
 
-<img src="F:/lifeProject/first-flask/images/2.png" alt="2" style="zoom:67%;" />
+<img src="https://raw.githubusercontent.com/ajuicefans/first-flask/main/images/2.png" alt="2" style="zoom:67%;" />
 
 config.py
 
@@ -194,7 +194,7 @@ flask db migrate
 flask db upgrade
 ```
 
-![3](F:/lifeProject/first-flask/images/3.png)
+![3](https://raw.githubusercontent.com/ajuicefans/first-flask/main/images/3.png)
 
 ---
 
@@ -204,7 +204,7 @@ flask db upgrade
 
 此处前端的代码直接用的现成的，如下图，复制粘贴好后
 
-![4](F:/lifeProject/first-flask/images/4.png)
+![4](https://raw.githubusercontent.com/ajuicefans/first-flask/main/images/4.png)
 
 这里创建了一个base.html文件，**作为各页面的父模板**
 
@@ -326,6 +326,8 @@ flask db upgrade
 
 在Flask中发送邮件非常简单，总共分为三步：①安装 `Flask-Mail` ；②配置邮箱参数；③发送邮件
 
+自己学习用个人邮箱即可，会用个人邮箱，就会用企业邮箱
+
 ---
 
 在终端 安装 `Flask-Mail` 第三方库
@@ -334,5 +336,66 @@ flask db upgrade
 pip install flask-mail
 ```
 
+---
+
+### 接下来用 qq邮箱 来演示
+
+<img src="https://raw.githubusercontent.com/ajuicefans/first-flask/main/images/5.png" alt="5" style="zoom:67%;" />
+
+发送后得到授权码；授权码不要泄露，用完后也可关闭 pop3/smtp服务
+
+<img src="https://raw.githubusercontent.com/ajuicefans/first-flask/main/images/6.png" alt="6" style="zoom:67%;" />
+
+#### 在`config.py`中输入以下内容
+
+```python
+# 邮箱配置
+MAIL_SERVER = "smtp.qq.com"
+MAIL_USE_SSL = True		# 是否进行加密
+MAIL_PORT = 465			# 端口号
+MAIL_USERNAME = "xxx@qq.com"
+MAIL_PASSWORD = "开启SMTP服务时生成的授权码"
+MAIL_DEFAULT_SENDER = "xxx@qq.com"
+```
+
+![7](https://raw.githubusercontent.com/ajuicefans/first-flask/main/images/7.png)
+
+---
+
+### 然后再继续写相应的代码
+
+#### exts.py
+
+```python
+from flask_sqlalchemy import SQLAlchemy
+from flask_mail import Mail
+
+db = SQLAlchemy()
+mail = Mail()
+```
+
+#### app.py中导入mail
+
+```python
+from exts import db, mail
+
+mail.init_app(app)
+```
+
+#### 在auth.py中写测试的视图函数
+
+```python
+@bp.route("/mail/test")
+def mail_test():
+    message = Message(subject="邮箱测试", recipients=["xxx@qq.com"], body="mail test")
+    mail.send(message)
+    return "邮件发送成功！"
+```
+
+### 访问 `/auth/mail/test` 就会发送邮件了
+
+---
 
 
+
+## 23-26 发送邮箱验证码功能实现
